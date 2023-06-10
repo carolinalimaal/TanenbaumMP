@@ -6,14 +6,17 @@ mp = [['00000000' for c in range(celula_por_banco)] for b in range(num_bancos)] 
 
 # Função para 'quebrar' o endereço entre banco e célula
 def MPcontroller(address): 
-    if 0 <= address < num_celulas: #2^5 -> varia de 0 até 31
-        banco = address // celula_por_banco #Divisão inteira do endereço pelo nº de células por banco para descobrir qual é o banco desejado
-        celula = address % celula_por_banco #Resto da divisão do endereço pelo nº de células por banco para descobrir qual é a célula desejada
+    if 0 <= address < num_celulas: 
+        banco = address // celula_por_banco 
+        celula = address % celula_por_banco 
         return banco, celula
     
 # Função de escrita
 def write(): 
     while True:
+        print('='*20)
+        print('  ESCREVENDO NA MP ')
+        print('='*20)
         address = int(input('ENDEREÇO DE 5 bits: ').zfill(5), 2)
         if 0 <= address < num_celulas:
             banco, celula = MPcontroller(address) #Para as variáveis receberem os valores obtidos pela função MPcontroller
@@ -29,8 +32,11 @@ def write():
 # Função para rodar todo o programa
 def runSimulation(): 
     while True:
-        address = int(input('ENDEREÇO DE 5 bits: ').zfill(5), 2)
-        if MPcontroller(address):
+        print('='*20)
+        print('     LENDO A MP ')
+        print('='*20)
+        address = int(input('ENDEREÇO DE 5 bits: ').zfill(5), 2) #Entrada do endereço pelo usuário
+        if MPcontroller(address): #Verifica se é um endereço válido e divide em bancos e células
             banco, celula = MPcontroller(address)
             print(f'Conteúdo da célula {bin(address)[2:].zfill(5)} -> {mp[banco][celula]}')
         else:
